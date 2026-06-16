@@ -9,6 +9,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   </head>
   <body>
+    <div class="side-bar">
+      <h2>Database Info</h2>
+      <div id="schema"></div>
+    </div>
     <div class="chat-page">
       <header><h1>Tehqeeq.AI</h1></header>
       <div id="chatBox"></div>
@@ -84,6 +88,42 @@
           "bot",
         );
       });
+
+      fetch("/schema")
+        .then((res) => res.json())
+        .then((data) => {
+          let html = "";
+
+          for (let table in data) {
+            html += `
+        <div class="table" onclick="toggleTable('${table}')">
+            📂 ${table}
+            <ul class = "columns" id="${table}" style="display:none;">
+        `;
+
+            data[table].forEach((column) => {
+              html += `
+            <li>
+              ${column}
+            </li>
+            `;
+            });
+
+            html += `
+            </ul>
+        </div>
+        `;
+          }
+
+          document.getElementById("schema").innerHTML = html;
+        });
+
+      function toggleTable(id) {
+        let element = document.getElementById(id);
+
+        element.style.display =
+          element.style.display === "none" ? "block" : "none";
+      }
     </script>
   </body>
 </html>

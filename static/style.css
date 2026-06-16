@@ -12,12 +12,30 @@ body {
   background-color: #ffffff;
   color: #222222;
   line-height: 1.6;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.side-bar {
+  width: 25%;
+  height: 100vh;
+  background-color: #748ffc;
+  color: #e5e7eb;
+  padding: 20px;
+  overflow-y: auto;
+  border-right: 1px solid #374151;
+  font-family: "Inter", sans-serif;
 }
 
 .chat-page {
+  background-color: #dbe4ff;
   display: flex;
+  width: 75%;
   flex-direction: column;
   height: 100vh;
+  justify-content: center;
+  align-items: center;
 }
 
 /* Header */
@@ -26,8 +44,10 @@ header {
   border-bottom: 1px solid #e5e7eb;
   text-align: center;
   font-size: 0.9rem;
-  color: #099268;
+  color: #364fc7;
   font-weight: 500;
+  width: 100%;
+  background: linear-gradient(to top, transparent, #bac8ff 100%);
 }
 
 /* Chat Area */
@@ -38,6 +58,7 @@ header {
   display: flex;
   flex-direction: column;
   gap: 30px;
+  width: 100%;
 }
 
 /* Messages */
@@ -54,7 +75,7 @@ header {
 }
 
 .msg.user p {
-  background: #c3fae8;
+  background: #bac8ff;
   padding: 5px 8px;
   border-radius: 16px;
   display: inline-block;
@@ -82,12 +103,13 @@ header {
 
 /* Input Area */
 .input-area {
+  width: 100%;
   padding: 20px;
-  background: linear-gradient(to bottom, transparent, white 20%);
+  background: linear-gradient(to bottom, transparent, #bac8ff 99%);
 }
 
 .input-wrapper {
-  max-width: 768px;
+  width: 768px;
   margin: 0 auto;
   display: flex;
   gap: 12px;
@@ -108,7 +130,7 @@ input {
 
 button {
   padding: 8px 20px;
-  background: #087f5b;
+  background: #5c7cfa;
   color: white;
   border: none;
   border-radius: 8px;
@@ -118,11 +140,57 @@ button {
 }
 
 button:hover {
-  background: #099268;
+  background: #4263eb;
 }
 
 /* Loading Animation */
 .loading p {
   color: #9ca3af;
   font-size: 0.9rem;
+}
+
+.table {
+  padding: 10px 12px;
+  margin: 6px 0;
+  background: #dbe4ff;
+  border-radius: 8px;
+  color: #364fc7;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 15px;
+}
+
+.table:hover {
+  background: #bac8ff;
+  transform: translateX(4px);
+}
+
+.columns {
+  list-style: none;
+  padding-left: 25px;
+  margin: 5px 0 10px;
+}
+
+/* Individual columns */
+.columns li {
+  padding: 6px 10px;
+  color: #9ca3af;
+  font-size: 14px;
+  border-left: 2px solid #374151;
+}
+
+/* Column hover */
+.columns li:hover {
+  color: #f3f4f6;
+  background: #748ffc;
+  transition: all 0.2s ease;
+}
+
+.sidebar h2 {
+  font-size: 18px;
+  margin-bottom: 20px;
+  color: #f9fafb;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }

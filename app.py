@@ -1,8 +1,8 @@
 import os
 from flask import Flask, render_template, request, jsonify, session
 from dotenv import load_dotenv
-from src.main import ask_prompt,performQuery,formatResponse
-
+from src.main import ask_prompt,performQuery,formatResponse,obtainStructure
+from src.queryPurification import purify
 
 load_dotenv()
 app = Flask(__name__)
@@ -10,11 +10,18 @@ app.secret_key = os.getenv("SECRET_KEY", "super-secret-key")
 
 # Placeholder for LLM logic
 def get_ai_response(user_input, history):
-
-    userQuery_response = ask_prompt(userQuery=user_input)[6:-3]
+    userQuery = purify(user_input)
+    userQuery_response = ask_prompt(userQuery=userQuery)[6:-3]
     query_result = performQuery(userQuery_response)
     response = formatResponse(userQuery_response,query_result)
     return response
+
+@app.route("/schema")
+def schema():
+
+    data = obtainStructure()
+
+    return jsonify(data)
 
 @app.route('/')
 def index():

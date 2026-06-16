@@ -10,7 +10,7 @@ cursor = conn.cursor()
 
 
 client = Groq(
-    api_key=os.getenv('GROQ_API_KEY'),
+    api_key='API_KEY',
 )
 
 prompt_userQuery = """You are an expert SQL developer.
@@ -66,6 +66,25 @@ def formatResponse(user_query,sql_response):
     format_response = ask_prompt(prompt = prompt_format)
     return format_response
 
+def obtainStructure():
+    query = """ SELECT table_name
+    FROM information_schema.tables
+    WHERE table_schema = 'public';"""
+
+    cursor.execute(query)
+    tables = cursor.fetchall()
+    table_hash = {table[0]: [] for table in tables}
+    for table in tables:
+        table_name = str(table[0])
+
+        query = """SELECT column_name, data_type
+                    FROM information_schema.columns
+                    WHERE table_name = %s"""
+        cursor.execute(query,(table_name,))
+        data = cursor.fetchall()
+        for col in data:
+            table_hash[table_name].append(col[0])
+    return table_hash
 
 
 
